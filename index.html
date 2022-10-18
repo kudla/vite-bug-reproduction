@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my app</title>
+
+  </head>
+  <body>
+    <div id="root">
+    </div>
+
+    <!-- node // crypto -->
+    <script>window.global = window;</script>
+    <script type="module" src="/src/configEnv.ts"></script>
+    <script type="module">
+        import { Buffer } from "buffer"; // <-- no typo here ("/")
+        import process from "process";
+        import EventEmitter from "events";
+
+        window.Buffer = Buffer;
+        window.process = process;
+        window.EventEmitter = EventEmitter;
+
+        if (!window.performance) {
+          window.performance = {}
+        }
+
+        if (!window.performance.now) {
+          const start = Date.now()
+          window.performance.now = () => Date.now() - start
+        }
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
